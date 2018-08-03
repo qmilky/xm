@@ -30,7 +30,8 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'getLogout']);
+        //其中这个except表示getLogout这个方法将不会受到这个中间件的影响 getLogout通常是登出方法
+        $this->middleware('guest', ['except' => 'getLogout']);  //判断是否登录。
     }
 
     /**

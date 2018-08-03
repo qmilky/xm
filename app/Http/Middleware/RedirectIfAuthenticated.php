@@ -34,7 +34,7 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next)
     {
-        if ($this->auth->check()) {
+        if ($this->auth->check()) {  //判断是否登录，登录则执行
             return redirect('/');
         }
 

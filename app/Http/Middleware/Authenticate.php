@@ -34,8 +34,8 @@ class Authenticate
      */
     public function handle($request, Closure $next)
     {
-        if ($this->auth->guest()) {
-            if ($request->ajax()) {
+        if ($this->auth->guest()) {  //guest()(该方法实质上是查看是否登录，若登录，查看用户是否存在，)方法查看vendor/laravel/framework/src/Illuminate/Auth/Guard.php
+            if ($request->ajax()) {  //laravel判断HTTP请求是否ajax
                 return response('Unauthorized.', 401);
             } else {
                 return redirect()->guest('auth/login');

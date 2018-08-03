@@ -13,7 +13,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
-
+use Illuminate\Support\Facades\Log;
 class UserController extends Controller
 {
     public function getIndex()
@@ -54,8 +54,9 @@ class UserController extends Controller
     public static function uploadFile()
     {
         $pic = $_FILES['pic']['name'];
+        Log::info('上传头像',[$pic,'===',pathinfo($pic,4)]);
         $dir = config('app.upload_image_dir');
-        $name = trim($dir.rand(1000000,9000000).time().'.'.pathinfo($pic,4),'.');
+        $name = trim($dir.rand(1000000,9000000).time().'.'.pathinfo($pic,PATHINFO_EXTENSION),'.');
         Input::file('pic')->move($dir,$name);
         return $name;
     }
