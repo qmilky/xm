@@ -194,7 +194,7 @@
                                         <span class="num">{{$v->price}}</span>
                                         元
                                     </p>
-                                    <!-- <div class="flag flag-postfree">免邮费</div> -->
+                                    {{--<div class="flag flag-postfree">免邮费</div>--}}
                                 </li>
                                 @endforeach
 

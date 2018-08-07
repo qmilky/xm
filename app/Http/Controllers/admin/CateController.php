@@ -24,7 +24,7 @@ class CateController extends Controller
         }
         foreach ($cates as $key => $cate) {
             $path = $cate->path;
-            $count = count(explode(',',$path))-1;
+            $count = count(explode(',',$path))-1;   //后台处理层级之间的关系
             $prefix = str_repeat('|------',$count);
             $cate -> name = $prefix.$cate -> name;
             $cate -> path = $cate -> path.','.$cate -> id;
@@ -50,10 +50,11 @@ class CateController extends Controller
         $cate = new Cate();
         $data = $request->only('name','pid','status');
         $cate->name = $data['name'];
-        $id = $data['pid'];
+        $pid = !empty($data['pid']) ? $data['pid'] : 0;
+        $id = $pid;
         $cate->pid = $id;
         $path = Cate::where('id',$id)->first();
-        $path = $path->path.','.$id;
+        $path = isset($path->path) ? $path->path.','.$id : 0;
         $cate->path = $path;
         $cate->status = $data['status'];
         if($cate->save()){

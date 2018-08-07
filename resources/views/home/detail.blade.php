@@ -134,7 +134,8 @@
                                 <input type="hidden" name="sku_price" value="">
                                 <input type="hidden" name="num" value="1">
                                 <dd class="goods-info-head-cart" id="goodsDetailBtnBox">
-                                    <button disabled="disabled" href="http://cart.mi.com/cart/add/2161600004" id="goodsDetailAddCartBtn" class="btn  btn-primary goods-add-cart-btn" data-disabled="false" data-gid="2161600004" data-package="0" data-stat-id="e7ed8543f67c5bd7" > <i class="iconfont"></i>加入购物车 </button>
+                                    <button  href="http://cart.mi.com/cart/add/2161600004" id="goodsDetailAddCartBtn" class="btn  btn-primary goods-add-cart-btn" data-disabled="false" data-gid="2161600004" data-package="0" data-stat-id="e7ed8543f67c5bd7" > <i class="iconfont"></i>加入购物车 </button>
+                                    {{--<button disabled="disabled" href="http://cart.mi.com/cart/add/2161600004" id="goodsDetailAddCartBtn" class="btn  btn-primary goods-add-cart-btn" data-disabled="false" data-gid="2161600004" data-package="0" data-stat-id="e7ed8543f67c5bd7" > <i class="iconfont"></i>加入购物车 </button>--}}
                                     <a id="goodsDetailCollectBtn" data-isfavorite="false" class=" btn btn-gray  goods-collect-btn " data-stat-id="9d1c11913f946c7f" > <i class="iconfont default"></i> <i class="iconfont red"></i><i class="iconfont red J_redCopy"></i>喜欢 </a>
                                 </dd>
                                 <dd class="goods-info-head-userfaq">
@@ -395,7 +396,7 @@
                 alert("系统错误请稍后再试!");
             },
             success: function(data) {
-
+                console.log(data);
                 if(data.status==0){
                     var r=confirm("添加成功,去购物车结算");
                     if (r==true)

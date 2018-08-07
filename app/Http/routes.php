@@ -65,7 +65,7 @@ Route::group(['prefix'=>'admin','namespace'=>'admin','middleware'=>'login'],func
     Route::controller('/user','UserController');
     Route::controller('/cate','CateController');
     Route::controller('/good','GoodsController');
-    Route::controller('/sku','SkuController');
+    Route::controller('/sku','SkuController');//添加路由规则  如果是sku开头的路径，都是交给SkuController来实现
     Route::controller('/comment','CommentController');
 
     //定义后台首页模块路由

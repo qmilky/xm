@@ -40,7 +40,7 @@ class GoodsController extends Controller
         $good->cate_id = $data['cate_id'];
         $good->price = $data['price'];
         $good->status = 1;
-        if($_FILES['showImg']['error']==0)
+        if($_FILES['showImg']['error']==0)   //0表示上传成功。
         {
             $good->showImg = self::uploadFile();
 
@@ -114,7 +114,7 @@ class GoodsController extends Controller
         $good -> cate_id = $data['cate_id'];
         $good -> price = $data['price'];
         $good -> status = $data['status'];
-        $good->content = $data['content'];
+        $good ->content = $data['content'];
 
         if($_FILES['showImg']['error']==0){
             self::updateFile();

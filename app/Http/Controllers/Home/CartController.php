@@ -462,6 +462,7 @@ class CartController extends Controller
         //判断是否登录
         $uid = session('uid');
         $sku = Sku::where('good_id',$request->input('good_id'))->where('price',$request->input('sku_price'))->where('color',$request->input('sku_color'))->where('attr',$request->input('sku_attr'))->first();
+//        return $request->all();
         //$sku = Sku::find($request->input('id'));
         //未登录情况将购物车信息加入到session中
         if(empty($uid)){

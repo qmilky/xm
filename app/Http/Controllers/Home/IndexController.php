@@ -14,7 +14,6 @@ class IndexController extends Controller
 {
     public function index()
     {
-        
         //获取明星产品信息
         $star = null;
         if(file_exists('./data/stargoods.json')){
@@ -22,7 +21,8 @@ class IndexController extends Controller
 
             $star = json_decode($star);
         }
-        $smarty = $this->allGoods(1);
+        $smarty = $this->allGoods(0);
+//        var_dump($smarty);die;
         // dd($smarty);
         return view('home.index',[
             'star'=>$star,
@@ -42,7 +42,8 @@ class IndexController extends Controller
         $data = [];
         //去goods表中查询所有该类下的所有商品信息
         $goods = Good::where('cate_id',$cate_id)->get()->toArray();
-        
+//        $goods = Good::where('cate_id',$cate_id)->get()->toArray();
+
         //去分类表中获取他所有子类 子类商品也是属于该类商品的
         $cates = Cate::where('pid',$cate_id)->get();
 
@@ -62,20 +63,22 @@ class IndexController extends Controller
         {
             
             $temp2 = Sku::where('good_id',$val['id'])->get();
-       
+//            $temp2=array("red","green","blue","yellow","brown");
             if(count($temp2)){
 
                 foreach($temp2 as $k=>$v){
                     $data2[] = $v;
-                    //限定个数
+                    //限定个数,最多取前8个。  前台index页最多只展示前8个sku
                     if(count($data2)>8){
-                        $data2 = array_slice($data2,0,8);
+                        $data2 = array_slice($data2,0,8);  //截取数据中的一部分
                         break 2;
                     }
                 }
 
             } 
         }
+//        echo '<pre>';
+//        var_dump($data2);die;
         return $data2;
     }
 }

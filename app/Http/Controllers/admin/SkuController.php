@@ -27,7 +27,7 @@ class SkuController extends Controller
     public function getAdd(Request $request)
     {
         $data = $request->only('id');
-        $good = Good::find($data['id']);
+        $good = Good::find($data['id']);  //商品表。
 
         return view('admin.sku.sku',['title'=>'编辑sku','good'=>$good]);
     }
@@ -49,7 +49,7 @@ class SkuController extends Controller
         $data = $request->only('title','good_id');
        
         if(Sku::where('title',$data['title'])->get()->count()){
-            echo Sku::where('good_id',$data['good_id'])->count();
+            echo Sku::where('good_id',$data['good_id'])->count();  //获取该商品下所有sku数量
         }else{
             echo '0';
         }

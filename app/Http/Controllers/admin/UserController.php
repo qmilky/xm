@@ -37,13 +37,13 @@ class UserController extends Controller
             $user->pic = self::uploadFile();
 
         }else{
-            $user->pic = config('app.upload_image_dir').'user.png';
+            $user->pic = config('app.upload_image_dir').'user.png';  //默认图片
         }
         $user->username = $data['username'];
         $user->email = $data['email'];
         $user->phone = $data['phone'];
 
-        if($user->save()){
+        if($user->save()){  //save 方法无法批量插入数据库，但是此处使用也比较方便。
             return redirect('admin/user/add')->with('info','添加成功');
         }else{
             return back()->with('error','添加失败');
@@ -57,7 +57,7 @@ class UserController extends Controller
         Log::info('上传头像',[$pic,'===',pathinfo($pic,4)]);
         $dir = config('app.upload_image_dir');
         $name = trim($dir.rand(1000000,9000000).time().'.'.pathinfo($pic,PATHINFO_EXTENSION),'.');
-        Input::file('pic')->move($dir,$name);
+        Input::file('pic')->move($dir,$name);  //vendor/laravel/framework/src/Illuminate/Http/Request.php
         return $name;
     }
 
@@ -89,7 +89,7 @@ class UserController extends Controller
         $user -> phone = $request -> phone;
         if($request->hasFile('pic')){
             self::updateFile();
-            $user->pic = self::uploadFile();
+            $user->pic = self::uploadFile();  //上传文件并且返回文件名。
         }
 
         $user -> save();
@@ -105,13 +105,14 @@ class UserController extends Controller
 
         if($dbpic != $defaultpic){
             if(file_exists(realpath($dbpic))) {
-                unlink(realpath($dbpic));
+                unlink(realpath($dbpic));  //删除服务器中原有上传的旧文件，默认文件除外。
             }
         }
     }
 
     public function getDelete(Request $request)
     {
+        //可以再将服务器中的图片也删除。
         $id = $request->input('id');
         if(User::where('id',$id)->first()->delete()){
             return back()->with('info','删除成功!');
@@ -157,7 +158,7 @@ class UserController extends Controller
 //        $user -> token = str_random(50);
         
         $user -> save();
-
+        //发送邮件
         Mail::send('email.register', ['user' => $user], function ($m) use ($user) {
             $m->from(env('MAIL_USERNAME'), config('app.APP_NAME'));
             $m->to($user['email'])->subject('Your Reminder!');

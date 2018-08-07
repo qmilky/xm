@@ -55,7 +55,7 @@ class OrderController extends Controller
    public function postEdit(Request $request)
    {
         $id = $request->input('id');
-        $order = Order::findOrFail($id);
+        $order = Order::findOrFail($id);  //与find（）的区别，没有数据时直接将异常抛出，即报错
         $order->order_status = $request->input('status');
 
         if($order->save())
